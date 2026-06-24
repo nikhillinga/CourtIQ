@@ -1,5 +1,5 @@
 import json
-from backend.services.query_parser import parse_query
+from backend.services.query_parser import parse
 
 queries = [
     "Show me Curry and Dame three point percentage over five seasons",
@@ -10,6 +10,6 @@ queries = [
 
 for q in queries:
     print(f"Query: {q}")
-    result = parse_query(q)
+    result = parse(q)
     print(json.dumps(result, indent=2))
     print()

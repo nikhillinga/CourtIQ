@@ -11,7 +11,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 import config
-from backend.routers import player_stats
+from backend.routes import player_stats
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -46,14 +46,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from backend.routers import player_stats, generate
+from backend.routes import player_stats, chart
 
 # ---------------------------------------------------------------------------
 # Routers
 # ---------------------------------------------------------------------------
 
 app.include_router(player_stats.router)
-app.include_router(generate.router)
+app.include_router(chart.router)
 
 
 # ---------------------------------------------------------------------------

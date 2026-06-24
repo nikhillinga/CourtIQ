@@ -3,8 +3,8 @@ import os
 
 import time
 import json
-from backend.services.query_parser import parse_query
-from backend.services.metric_resolver import resolve_metrics
+from backend.services.query_parser import parse
+from backend.services.metric_resolver import resolve
 from backend.services.chart_selector import select_chart
 
 queries = [
@@ -35,7 +35,7 @@ for q in queries:
     print(f"Query: {q}")
     start = time.time()
     try:
-        result = parse_query(q)
+        result = parse(q)
         end = time.time()
         elapsed = end - start
         total_time += elapsed
@@ -46,8 +46,8 @@ for q in queries:
         
         # Test the metric resolver
         if result.get("metrics"):
-            resolved = resolve_metrics(result["metrics"])
-            print(f"Resolved Metrics: {json.dumps(resolved, indent=2)}")
+            resolved_metrics = resolve(result["metrics"])
+            print(f"Resolved Metrics: {json.dumps(resolved_metrics, indent=2)}")
         
         # Test the chart selector
         if not result.get("error"):

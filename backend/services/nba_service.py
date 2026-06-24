@@ -347,3 +347,37 @@ def get_player_stats(
     logger.info("Cached %s (ttl=%ds)", key, ttl)
 
     return response
+
+
+def fetch(
+    players: List[str],
+    resolved_metrics: Dict[str, str | None],
+    season: str,
+    seasons_count: int,
+) -> Dict[str, PlayerStatsResponse]:
+    """
+    Fetch and aggregate stats for a list of players.
+    
+    Raises a ValueError with a user-friendly message if no players are provided.
+    Returns a dictionary mapping the queried player name to their PlayerStatsResponse.
+    """
+    if not players:
+        raise ValueError("I need specific player names to compare! (Top-N queries across the whole league aren't supported yet).")
+
+    all_stats = {}
+    for p in players:
+        # We catch exceptions to wrap them in ValueError for the orchestrator to handle gracefully
+        try:
+            p_stats = get_player_stats(
+                player_name=p,
+                season=season,
+                seasons_count=seasons_count,
+                playoffs=False
+            )
+            all_stats[p] = p_stats
+        except HTTPException as e:
+            raise ValueError(f"Could not find data for {p}: {e.detail}") from e
+        except Exception as e:
+            raise ValueError(f"Error fetching data for {p}: {str(e)}") from e
+
+    return all_stats

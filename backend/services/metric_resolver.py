@@ -125,7 +125,7 @@ _METRIC_MAP = {
     "gp": "GP"
 }
 
-def resolve_metrics(input_metrics: List[str]) -> Dict[str, Optional[str]]:
+def resolve(metrics: List[str]) -> Dict[str, Optional[str]]:
     """
     Resolve a list of input metric names (slang or official) to official NBA stat fields.
     
@@ -137,7 +137,7 @@ def resolve_metrics(input_metrics: List[str]) -> Dict[str, Optional[str]]:
         (e.g., {"dimes": "AST", "boards": "REB", "unknown": None})
     """
     resolved = {}
-    for term in input_metrics:
+    for term in metrics:
         # Normalize the string: lower case, strip whitespace
         normalized_term = term.lower().strip()
         

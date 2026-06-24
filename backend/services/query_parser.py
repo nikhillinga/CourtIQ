@@ -203,7 +203,7 @@ def _validate_parsed(data: Dict[str, Any]) -> Dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
-def parse_query(query: str) -> Dict[str, Any]:
+def parse(query: str) -> Dict[str, Any]:
     """
     Parse a natural-language basketball query into structured JSON.
 
